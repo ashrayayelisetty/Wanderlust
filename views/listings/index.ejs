@@ -1,0 +1,137 @@
+<% layout("/layouts/boilerplate")%>
+
+<body>
+    <div id="filters">
+        <a href="/listings?category=Trending" style="text-decoration:none; color:inherit;">
+            <div class="filter">
+                <i class="fa-solid fa-fire"></i>
+                <p>Trending</p>
+            </div>
+        </a>
+        <a href="/listings?category=Top Rated" style="text-decoration:none; color:inherit;">
+            <div class="filter">
+                <i class="fa-solid fa-star"></i>
+                <p>Top Rated</p>
+            </div>
+        </a>
+        <a href="/listings?category=Rooms" style="text-decoration:none; color:inherit;">
+            <div class="filter">
+                <i class="fa-solid fa-bed"></i>
+                <p>Rooms</p>
+            </div>
+        </a>
+
+        <a href="/listings?category=Iconic Cities" style="text-decoration:none; color:inherit;">
+            <div class="filter">
+                <i class="fa-solid fa-city"></i>
+                <p>Iconic Cities</p>
+            </div>
+        </a>
+
+        <a href="/listings?category=Mountains" style="text-decoration:none; color:inherit;">
+            <div class="filter">
+                <i class="fa-solid fa-mountain"></i>
+                <p>Mountains</p>
+            </div>
+        </a>
+
+        <a href="/listings?category=Pools" style="text-decoration:none; color:inherit;">
+            <div class="filter">
+                <i class="fa-solid fa-person-swimming"></i>
+                <p>Pools</p>
+            </div>
+        </a>
+
+        <a href="/listings?category=Castles" style="text-decoration:none; color:inherit;">
+            <div class="filter">
+               <i class="fa-brands fa-fort-awesome"></i>
+                <p>Castles</p>
+            </div>
+        </a>
+
+        <a href="/listings?category=Forest" style="text-decoration:none; color:inherit;">
+            <div class="filter">
+                <i class="fa-solid fa-tree"></i>
+                <p>Forest</p>
+            </div>
+        </a>
+        <a href="/listings?category=Skiing" style="text-decoration:none; color:inherit;">
+            <div class="filter">
+              <i class="fa-solid fa-person-skiing"></i>
+                <p>Skiing</p>
+            </div>
+        </a>
+
+        <a href="/listings?category=Play" style="text-decoration:none; color:inherit;">
+            <div class="filter">
+               <i class="fa-solid fa-bowling-ball"></i>
+                <p>Play</p>
+            </div>
+        </a>
+        
+
+         
+
+        <div class="tax-switch">
+            <div class="form-check form-switch form-check-reverse">
+                <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDefault">
+                <label class="form-check-label" for="flexSwitchCheckDefault">Display total after taxes</label>
+            </div>
+        </div>
+    </div>
+
+    
+    <div class="row row-cols-lg-3 row-cols-md-3 row-cols-sm-1 g-4 mt-2">
+        <% for(let listing of listings){ %>
+            <a href="/listings/<%=listing._id%>" style="text-decoration:none; color:black;">
+    <div class="listing-card card" style="width: 20rem;">
+        <img src="<%=listing.image.url%>" class="card-img-top" alt="listing-image">
+        <div class="card-img-overlay"></div>
+        <div class="card-body">
+            <p class="card-text">
+               <b> <%= listing.title %></b>
+                <br>
+                &#8377;<%= listing.price.toLocaleString("en-IN") %> per night
+                <i class="tax-info">&nbsp; +18% GST</i>
+            </p>
+        </div>
+    </div>
+    </a>
+    <% } %>
+
+    </div>
+     
+
+<script>
+    let priceSwitch=document.getElementById('flexSwitchCheckDefault');
+    priceSwitch.addEventListener('change',()=>{
+        let tax=document.getElementsByClassName('tax-info');
+        for(let i=0;i<tax.length;i++){
+            let priceText=tax[i].previousSibling.textContent;
+            let price=parseFloat(priceText.replace(/[^0-9.-]+/g,""));
+            if(priceSwitch.checked){
+                let totalPrice=(price*1.18).toFixed(2);
+                tax[i].previousSibling.textContent=`₹${totalPrice} per night`;
+            }else{
+                let basePrice=(price/1.18).toFixed(2);
+                tax[i].previousSibling.textContent=`₹${basePrice} per night`;
+            }
+        }
+    });
+</script>
+
+
+    
+
+<!--     
+//     <form action="/listings/new" method="GET">
+//         <button>Add a new one!</button>
+//     </form> -->
+    
+</body>
+
+
+
+
+
+
