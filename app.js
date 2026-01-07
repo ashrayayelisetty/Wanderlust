@@ -40,6 +40,7 @@ const {saveredirectUrl}=require('./middleware.js');
 async function main(){
     await mongoose.connect(dbUrl);
 }
+
 main().then(()=>{
     console.log("Connected to MongoDB");
 }).catch((err)=>{
@@ -92,7 +93,6 @@ app.use((req,res,next)=>{
 });
 
 //using listings router for all routes starting with /listings
-app.use(saveredirectUrl);
 app.use('/listings',listingsRouter);
 app.use('/listings/:id/reviews',reviewsRouter);//reviews routes
 app.use('/',usersRouter);//users routes
