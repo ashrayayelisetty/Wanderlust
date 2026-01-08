@@ -92,6 +92,11 @@ app.use((req,res,next)=>{
     next();
 });
 
+//redirect base URL to listings index
+app.get('/', (req, res) => {
+    res.redirect('/listings');
+});
+
 //using listings router for all routes starting with /listings
 app.use('/listings',listingsRouter);
 app.use('/listings/:id/reviews',reviewsRouter);//reviews routes
